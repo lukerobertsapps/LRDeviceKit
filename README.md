@@ -22,13 +22,14 @@ When sending and receiving data, all messages follow this structure:
 |----------------|--------------|---------|-----------|-----------|---------|
 | 1 byte         | 1 byte       | 1 byte  | 1 byte    | 1 byte    | N bytes |
 
-| 0   | Message Length | This is the total length of the entire message including the payload |
-|-----|----------------|--------------------------------------------------------------|
-| 1   | Message Type   | This is the type of message which can either be a request or reply |
-| 2   | Command        | This is the actual command such as set name                  |
-| 3   | Namespace      | This acts as a group (like a service) to group similar commands together. It allows for command IDs to be reused across namespaces. |
-| 4   | Encrypted      | Boolean for whether the message is encrypted or not          |
-| 5   | Payload        | The actual payload data for the message. For example, the device name in the set name command. |
+| Index | Name      | Description                                                  |
+|-------|-----------|--------------------------------------------------------------|
+| 0     | Length    | This is the total length of the entire message including the payload |
+| 1     | Type      | This is the type of message which can either be a request or reply |
+| 2     | Command   | This is the actual command such as set name                  |
+| 3     | Namespace | This acts as a group (like a service) to group similar commands together. It allows for command IDs to be reused across namespaces. |
+| 4     | Encrypted | Boolean for whether the message is encrypted or not          |
+| 5     | Payload   | The actual payload data for the message. For example, the device name in the set name command. |
 
 ### Prerequisites
 
@@ -73,12 +74,12 @@ reply_uuid = '00000002-9f34-11ee-8c90-0242ac120002'
 
 You can add LRDeviceKit to your project using Swift Package Manager. Either:
 
-1. Add <URL> as a Swift Package dependency to your project
+1. Add `https://github.com/lukerobertsapps/LRSwiftLock.git` as a Swift Package dependency to your project
 or
 2. Add the URL to your `Package.swift` file
 ```swift
 dependencies: [
-    .package(url: "<URL>", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/lukerobertsapps/LRSwiftLock.git", .upToNextMajor(from: "1.0.0"))
 ]
 ```
 
@@ -90,14 +91,14 @@ dependencies: [
 2. Create and pass in a configuration
 ```swift
 let configuration = LRDeviceKit.Configuration(
-	serviceUUIDString: "00000000-9f34-11ee-8c90-0242ac120002",
-    requestUUIDString: "00000001-9f34-11ee-8c90-0242ac120002",
-    replyUUIDString: "00000002-9f34-11ee-8c90-0242ac120002",
-    companyIdentifier: Data([0xFF, 0xFF]),
-   	features: [
-    	LEDToggleFeature.self,
-		...
-   ]
+  serviceUUIDString: "00000000-9f34-11ee-8c90-0242ac120002",
+  requestUUIDString: "00000001-9f34-11ee-8c90-0242ac120002",
+  replyUUIDString: "00000002-9f34-11ee-8c90-0242ac120002",
+  companyIdentifier: Data([0xFF, 0xFF]),
+  features: [
+    LEDToggleFeature.self,
+    ...
+  ]
 )
 LRDeviceKit.shared.setup(with: configuration)
 ```
@@ -107,7 +108,7 @@ LRDeviceKit.shared.setup(with: configuration)
 @State var deviceManager = DeviceManager()
 
 ContentView()
-	.environment(deviceManager)
+  .environment(deviceManager)
 ```
 
 ### Discovery and Connection
@@ -120,10 +121,10 @@ try deviceManager.startDiscovery()
 Access all discoveries
 ```swift
 ForEach(deviceManager.discoveries) { discovery in
-	VStack {
-		Text(discovery.name)
-		Text(discovery.serial)
-	}
+  VStack {
+    Text(discovery.name)
+	Text(discovery.serial)
+  }
 }
 ```
 
@@ -144,8 +145,8 @@ Create all your device features in the app layer and pass them to the library du
 1. Extend MessageCommand to include your commands and namespaces. Example here
 ```swift
 extension MessageCommand {
-	// LED Namespace (0x05)
-	static let toggleLED = MessageCommand(rawValue: 0x0105)
+  // LED Namespace (0x05)
+  static let toggleLED = MessageCommand(rawValue: 0x0105)
 }
 ```
 
@@ -158,19 +159,19 @@ final class LEDToggleFeature: Feature {
 3. Use the Message and Handler structure to send data to your BLE peripheral 
 ```swift
 func toggleLED(enabled: Bool) async throws {
-    let payload: Data = enabled ? Data([0x01]) : Data([0x00])
-    let message = Message(command: .toggleLED, payload: payload)
-    try await handler.send(message)
+  let payload: Data = enabled ? Data([0x01]) : Data([0x00])
+  let message = Message(command: .toggleLED, payload: payload)
+  try await handler.send(message)
 }
 ```
 
 4. Pass in all your features to the configuration
 ```swift
 let configuration = LRDeviceKit.Configuration(
-    ...,
-    features: [
-        LEDToggleFeature.self
-    ]
+  ...,
+  features: [
+    LEDToggleFeature.self
+  ]
 )
 ```
 
@@ -179,7 +180,7 @@ let configuration = LRDeviceKit.Configuration(
 To use your device features, you can access them through the device manager:
 ```swift
 func buttonPressed() async throws {
-    guard let feature: LEDToggleFeature = deviceManager.device?.feature() else { return }
-    try await feature.toggleLED(enabled: true)
+  guard let feature: LEDToggleFeature = deviceManager.device?.feature() else { return }
+  try await feature.toggleLED(enabled: true)
 }
 ```
