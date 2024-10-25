@@ -3,13 +3,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "SwiftLockDeviceKit",
+    name: "LRDeviceKit",
     defaultLocalization: "en",
     platforms: [.iOS(.v17)],
     products: [
         .library(
-            name: "SwiftLockDeviceKit",
-            targets: ["SwiftLockDeviceKit"]
+            name: "LRDeviceKit",
+            targets: ["LRDeviceKit"]
         )
     ],
     dependencies: [
@@ -24,15 +24,15 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SwiftLockDeviceKit",
+            name: "LRDeviceKit",
             dependencies: [
                 .product(name: "CoreBluetoothMock", package: "ios-corebluetooth-mock"),
                 .product(name: "KeychainAccess", package: "KeychainAccess")
             ]
         ),
         .testTarget(
-            name: "SwiftLockDeviceKitTests",
-            dependencies: ["SwiftLockDeviceKit"]
+            name: "LRDeviceKitTests",
+            dependencies: ["LRDeviceKit"]
         )
     ]
 )
