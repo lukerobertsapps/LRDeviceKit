@@ -1,7 +1,5 @@
 # LRDeviceKit
 
-BLE Peripheral interaction made easy
-
 * [Overview](#overview)
     * [Prerequisites](#prerequisites)
 * [Installation](#installation)
@@ -13,7 +11,7 @@ BLE Peripheral interaction made easy
 
 ## Overview
 
-LRDeviceKit was created as part of my final dissertation for my Digital and Technology Solutions degree. It was originally part of [SwiftLock](https://lukeroberts.co/work/swiftlock/), aiming to simplify smart device product setup however it is now published as a standalone library. The libary utilises modern Swift Concurrency.
+LRDeviceKit was created as part of my final dissertation for my Digital and Technology Solutions degree. It was originally part of [SwiftLock](https://lukeroberts.co/work/swiftlock/), aiming to simplify smart device product setup. The libary utilises modern Swift Concurrency.
 
 It makes device communication easy by enforcing a custom communication and messaging protocol that utilises only 1 BLE service and 2 BLE characteristics and a rigid message structure. The library sends commands to a peripheral’s request characteristic and the device replies back using its reply characteristic.
 
@@ -74,9 +72,8 @@ reply_uuid = '00000002-9f34-11ee-8c90-0242ac120002'
 
 You can add LRDeviceKit to your project using Swift Package Manager. Either:
 
-1. Add `https://github.com/lukerobertsapps/LRSwiftLock.git` as a Swift Package dependency to your project
-or
-2. Add the URL to your `Package.swift` file
+1. Add `https://github.com/lukerobertsapps/LRSwiftLock.git` as a Swift Package dependency to your project.
+2. OR add the URL to your `Package.swift` file
 ```swift
 dependencies: [
     .package(url: "https://github.com/lukerobertsapps/LRSwiftLock.git", .upToNextMajor(from: "1.0.0"))
@@ -102,7 +99,7 @@ let configuration = LRDeviceKit.Configuration(
 )
 LRDeviceKit.shared.setup(with: configuration)
 ```
-3. Create commands and features (see section)
+3. Create commands and features. [See here.](#creating-features)
 4. Create a single instance of device manager, this can be an environment object in SwiftUI
 ```swift
 @State var deviceManager = DeviceManager()
@@ -123,7 +120,7 @@ Access all discoveries
 ForEach(deviceManager.discoveries) { discovery in
   VStack {
     Text(discovery.name)
-	Text(discovery.serial)
+    Text(discovery.serial)
   }
 }
 ```
@@ -142,7 +139,7 @@ try await deviceManager.connect(with: "010203040506")
 
 Create all your device features in the app layer and pass them to the library during configuration.
 
-1. Extend MessageCommand to include your commands and namespaces. Example here
+1. Extend MessageCommand to include your commands and namespaces. [Example here.](/Sources/LRDeviceKit/Message/MessageCommand.swift)
 ```swift
 extension MessageCommand {
   // LED Namespace (0x05)
