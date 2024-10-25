@@ -12,10 +12,10 @@ import Foundation
 /// Made up of two bytes:
 ///     - 1: Represents the command
 ///     - 2: Represents the namespace the command belongs to
-struct MessageCommand: RawRepresentable, Hashable {
-    let rawValue: UInt16
+public struct MessageCommand: RawRepresentable, Hashable {
+    public let rawValue: UInt16
 
-    init(rawValue: UInt16) {
+    public init(rawValue: UInt16) {
         self.rawValue = rawValue
     }
 }

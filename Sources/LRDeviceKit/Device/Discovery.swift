@@ -7,8 +7,6 @@
 
 import Foundation
 
-private let companyIdentifier = Data([0xFF, 0xFF])
-
 /// Represents a device that has been discovered but not connected to
 public class Discovery {
 
@@ -34,7 +32,7 @@ public class Discovery {
         // Check company index
         guard
             let manufacturerData = advertData[CBAdvertisementDataManufacturerDataKey] as? Data,
-            manufacturerData[companyIndex] == companyIdentifier
+            manufacturerData[companyIndex] == LRDeviceKit.shared.configuration.companyIdentifier
         else {
             return nil
         }

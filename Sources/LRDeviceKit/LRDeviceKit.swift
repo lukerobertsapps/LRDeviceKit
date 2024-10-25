@@ -5,6 +5,8 @@
 //  Created by Luke Roberts on 25/10/2024.
 //
 
+import Foundation
+
 /// Entry point into LRDeviceKit
 ///
 /// Used to setup the library such as setting the available features etc
@@ -30,11 +32,26 @@ public final class LRDeviceKit {
 /// MARK: Configuration Object
 
 extension LRDeviceKit {
-    struct Configuration {
+    public struct Configuration {
         let serviceUUIDString: String
         let requestUUIDString: String
         let replyUUIDString: String
+        let companyIdentifier: Data
         let features: [Feature.Type]
+
+        public init(
+            serviceUUIDString: String,
+            requestUUIDString: String,
+            replyUUIDString: String,
+            companyIdentifier: Data,
+            features: [Feature.Type]
+        ) {
+            self.serviceUUIDString = serviceUUIDString
+            self.requestUUIDString = requestUUIDString
+            self.replyUUIDString = replyUUIDString
+            self.companyIdentifier = companyIdentifier
+            self.features = features
+        }
     }
 }
 
@@ -47,6 +64,7 @@ extension LRDeviceKit.Configuration {
             serviceUUIDString: "00000000-9f34-11ee-8c90-0242ac120002",
             requestUUIDString: "00000001-9f34-11ee-8c90-0242ac120002",
             replyUUIDString: "00000002-9f34-11ee-8c90-0242ac120002",
+            companyIdentifier: Data([0xFF, 0xFF]),
             features: [
                 NameFeature.self,
                 WifiFeature.self,
