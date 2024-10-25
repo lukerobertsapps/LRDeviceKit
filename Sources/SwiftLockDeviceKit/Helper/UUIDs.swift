@@ -11,11 +11,11 @@ import CoreBluetooth
 extension CBUUID {
 
     /// The UUID for the lock service
-    static let serviceUUID = CBUUID(string: "00000000-9f34-11ee-8c90-0242ac120002")
+    static let serviceUUID = CBUUID(string: LRDeviceKit.shared.configuration.serviceUUIDString)
 
     /// The UUID for the request characteristic
-    static let requestUUID = CBUUID(string: "00000001-9f34-11ee-8c90-0242ac120002")
+    static let requestUUID = CBUUID(string: LRDeviceKit.shared.configuration.requestUUIDString)
 
     /// The UUID for the reply characteristic
-    static let replyUUID = CBUUID(string: "00000002-9f34-11ee-8c90-0242ac120002")
+    static let replyUUID = CBUUID(string: LRDeviceKit.shared.configuration.replyUUIDString)
 }
