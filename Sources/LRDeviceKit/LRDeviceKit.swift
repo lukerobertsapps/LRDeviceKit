@@ -7,8 +7,6 @@
 
 import Foundation
 
-/// Entry point into LRDeviceKit
-///
 /// Used to setup the library such as setting the available features etc
 public final class LRDeviceKit {
 
