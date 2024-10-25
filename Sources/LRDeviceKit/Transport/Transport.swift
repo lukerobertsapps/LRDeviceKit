@@ -9,7 +9,7 @@ import Foundation
 import CoreBluetoothMock
 
 /// Represents a generic transport layer used to send data
-protocol Transport: NSObject {
+public protocol Transport: NSObject {
 
     /// Asynchronously determines if the transport is ready for use
     var isReady: Bool { get async }

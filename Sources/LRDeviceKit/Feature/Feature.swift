@@ -11,14 +11,14 @@ import Foundation
 ///
 /// Features send data through a handler
 /// This class is a feature base class and is designed to be inherited from
-public class Feature {
+open class Feature {
 
     /// The handler used to access the transport
-    let handler: Handler
+    public let handler: Handler
 
     /// Initialises the feature with a handler
     /// - Parameter handler: The handler used to access the transport
-    required init(handler: Handler) {
+    required public init(handler: Handler) {
         self.handler = handler
     }
 }

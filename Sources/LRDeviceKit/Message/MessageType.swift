@@ -8,7 +8,7 @@
 import Foundation
 
 /// The type of message
-enum MessageType: UInt8 {
+public enum MessageType: UInt8 {
 
     /// A message type requesting data
     case request = 0x01

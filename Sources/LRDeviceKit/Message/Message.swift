@@ -8,7 +8,7 @@
 import Foundation
 
 /// Represents a message that can be sent to and from a device
-struct Message: Transportable {
+public struct Message: Transportable {
 
     /// The type of message
     let type: MessageType
@@ -17,7 +17,7 @@ struct Message: Transportable {
     /// Whether the message contains an encrypted payload
     let isEncrypted: Bool
     /// The main contents of the message
-    let payload: Data?
+    public let payload: Data?
 
     /// Creates a new message
     /// - Parameters:
@@ -25,7 +25,7 @@ struct Message: Transportable {
     ///   - command: The command for the message
     ///   - isEncrypted: Whether the message is encrypted, false by default
     ///   - payload: The contents of the message
-    init(
+    public init(
         type: MessageType = .request,
         command: MessageCommand,
         isEncrypted: Bool = false,
@@ -37,7 +37,7 @@ struct Message: Transportable {
         self.payload = payload
     }
 
-    init?(from data: Data) {
+    public init?(from data: Data) {
         if
             data.count >= 5,
             let messageType: UInt8 = data[1..<2].typeConverted(),
@@ -60,7 +60,7 @@ struct Message: Transportable {
         }
     }
 
-    func pack() -> Data {
+    public func pack() -> Data {
         var packedData = Data()
         packedData.append(type.rawValue)
         packedData.append(command.rawValue.bigEndian.data)

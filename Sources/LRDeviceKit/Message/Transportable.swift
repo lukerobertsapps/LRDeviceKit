@@ -8,10 +8,10 @@
 import Foundation
 
 /// A type that can be both packed and unpacked into and from data
-typealias Transportable = Packable & Unpackable
+public typealias Transportable = Packable & Unpackable
 
 /// Represents an object that can be packed into data
-protocol Packable {
+public protocol Packable {
 
     /// Converts the object into a data representation
     /// - Returns: The raw data
@@ -19,7 +19,7 @@ protocol Packable {
 }
 
 /// Represents an object that can be created from data
-protocol Unpackable {
+public protocol Unpackable {
 
     /// The payload for the object
     var payload: Data? { get }

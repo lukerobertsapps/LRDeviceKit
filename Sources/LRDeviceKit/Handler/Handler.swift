@@ -8,7 +8,7 @@
 import Foundation
 
 /// Outlines a handler, designed to bridge the gap between a feature and a transport
-protocol Handler {
+public protocol Handler {
 
     /// The transport used to send the data through
     var transport: Transport { get }

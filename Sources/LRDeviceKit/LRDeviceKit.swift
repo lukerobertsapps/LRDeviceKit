@@ -24,7 +24,7 @@ public final class LRDeviceKit {
 
     private init() { }
 
-    func setup(with configuration: Configuration) {
+    public func setup(with configuration: Configuration) {
         self.config = configuration
     }
 }
