@@ -147,22 +147,18 @@ extension MessageCommand {
 }
 ```
 
-2. Create a `Feature`
+2. Create a `Feature` and use the Message and Handler structure to send data to your peripheral.
 ```swift
 final class LEDToggleFeature: Feature {
+  func toggleLED(enabled: Bool) async throws {
+    let payload: Data = enabled ? Data([0x01]) : Data([0x00])
+    let message = Message(command: .toggleLED, payload: payload)
+    try await handler.send(message)
+  }
 }
 ```
 
-3. Use the Message and Handler structure to send data to your BLE peripheral 
-```swift
-func toggleLED(enabled: Bool) async throws {
-  let payload: Data = enabled ? Data([0x01]) : Data([0x00])
-  let message = Message(command: .toggleLED, payload: payload)
-  try await handler.send(message)
-}
-```
-
-4. Pass in all your features to the configuration
+3. Pass in all your features to the configuration
 ```swift
 let configuration = LRDeviceKit.Configuration(
   ...,
@@ -171,6 +167,8 @@ let configuration = LRDeviceKit.Configuration(
   ]
 )
 ```
+
+4. A list of features used in SwiftLock can be found [here.](/Sources/LRDeviceKit/Feature/ExampleFeatures/)
 
 ### Using Features
 
