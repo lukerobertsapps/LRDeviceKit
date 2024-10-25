@@ -43,9 +43,9 @@ struct Message: Transportable {
             let messageType: UInt8 = data[1..<2].typeConverted(),
             let messageCommand: UInt16 = data[2..<4].typeConverted(),
             let isEncrypted: Bool = data[4..<5].typeConverted(),
-            let type = MessageType(rawValue: messageType),
-            let command = MessageCommand(rawValue: messageCommand.bigEndian)
+            let type = MessageType(rawValue: messageType)
         {
+            let command = MessageCommand(rawValue: messageCommand.bigEndian)
             self.type = type
             self.command = command
             self.isEncrypted = isEncrypted

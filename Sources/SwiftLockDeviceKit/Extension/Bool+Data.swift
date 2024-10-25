@@ -16,7 +16,7 @@ extension Bool {
 }
 
 // Means a bool can be converted from data
-extension Bool: ExpressibleByIntegerLiteral {
+extension Bool: @retroactive ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
         self = value == 1
     }
