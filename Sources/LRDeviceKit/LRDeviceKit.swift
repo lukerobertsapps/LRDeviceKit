@@ -21,7 +21,9 @@ public final class LRDeviceKit {
     }
 
     private init() { }
-
+    
+    /// Initial setup of the library with a configuration object
+    /// - Parameter configuration: The configuration to use
     public func setup(with configuration: Configuration) {
         self.config = configuration
     }
@@ -31,12 +33,25 @@ public final class LRDeviceKit {
 
 extension LRDeviceKit {
     public struct Configuration {
-        let serviceUUIDString: String
-        let requestUUIDString: String
-        let replyUUIDString: String
-        let companyIdentifier: Data
-        let features: [Feature.Type]
 
+        /// The UUID of the BLE service containing the two characteristics
+        let serviceUUIDString: String
+        /// The UUID of the BLE characteristic for sending requests to
+        let requestUUIDString: String
+        /// The UUID of the BLE characteristic that the device replies on
+        let replyUUIDString: String
+        /// The 2-byte company identifier in the advert data
+        let companyIdentifier: Data
+        /// A list of features the device supports
+        let features: [Feature.Type]
+        
+        /// Creates a new configuration object
+        /// - Parameters:
+        ///   - serviceUUIDString: The UUID of the BLE service containing the two characteristics
+        ///   - requestUUIDString: The UUID of the BLE characteristic for sending requests to
+        ///   - replyUUIDString: The UUID of the BLE characteristic that the device replies on
+        ///   - companyIdentifier: The 2-byte company identifier in the advert data
+        ///   - features: A list of features the device supports
         public init(
             serviceUUIDString: String,
             requestUUIDString: String,
@@ -57,6 +72,7 @@ extension LRDeviceKit {
 
 extension LRDeviceKit.Configuration {
     
+    /// The default configuration for the library (Used in SwiftLock)
     static var defaultConfiguration: Self {
         return Self(
             serviceUUIDString: "00000000-9f34-11ee-8c90-0242ac120002",
